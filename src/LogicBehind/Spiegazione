@@ -1,0 +1,41 @@
+quindi facciamo cosi :
+il mio programam voglio che sia un'esecutore di blackjack
+in poche parole ho 8 mazzi da 52 carte , ogni giocatore ( o magari solo io per ora ) possiede due carte che vengono pescate da questi 8 mazzi
+ogni singola volta che viene chiamata carta il mio mazzo si deve aggiornare
+Per ora non aggiungiamo la cut card perchè non va
+
+Analizziamo semplicemente il funziomento del gioco:
+1. Un mazzo è composto da 52 carte
+2. Il dealer distribuisce le carte e assegna una carta a persona e una anche a se stesso come primissimo giro , dopodichè viene distruibuita la seconda carta a tutti i giocatori
+3. da decidere se voglio applicare regole del dealer sulla distribuzione della seconda carta : Aspettare che tutti giocaotiri finiscano di giocae e poi assgenare la seconda cart al dealer , oppure se dargliela subito prima del gioco
+4. Con due carte uguali ( numero , che può essere anche stesso seme ) si può splittare ( se ho 10 e una figura no , solo 2 figure o 10 e 10)
+5. il double down è a carta coperta ( posso assegnargli ? come valore restituito che non conosco )
+6. Se decido hit , la carta viene assegnata , niente alert , stessa cosa per stay
+7. deciderò se assegnare una puntata oppure no ( quindi se renderlo un vero casinò )
+8. Ci si può alzare dal tavolo in ogni momento , possibilmente daremo un contatore di mani vinte e mani perse
+9. Il dealer devce starsi >= 17 come punteggio, se fa 22 non c'è push ma bust.
+10. Il dealer è costretto a chiamare un soft 17.
+11. posso implementare una funzione di shuffle , dato che per ora non sto inserendo la carta di taglio ( e possibilmente è troppo lungo da solo contro il dealer inire 8 mazzi )
+12. L'asso vale chiaramente sia 1 che 11.
+
+Come posso farlo io ora ?
+Allora ho diverse idee sul suo funzionamento. Se utilizzo per esempio 8 mazzi vuol dire che di una carta ci saranno 8 copie uguali , di uno stesso numero ce ne saranno 32
+Quindi l'ideale sarebbe per esempio creare una classe di Mazzo per spiegare come essa sia composta , quindi 52 carte che devono essere tutte quante inserite e devoni avere un valore assegnato
+Qui una Mappa sarebbe piu che utile dato che essa contiene sia la carta che il valore.
+La mia carta è quindi un variabile fissa che non deve cambiare : Ho quella carta e quella carta solamente
+Momentaneamente non mi serve nemmeno concentrarmi sul seme della carta stessa dato che non sto inserendo side bet , ma facciamo che io abbia gia questo progetto in mente
+La mia carta è dunque un oggetto ? Oppure no? Direi proprio di si
+Ha due proprietà appartenenti solo a essa : Valore e seme. Ogni mazzo ne contiene 52.
+Quindi sarebbe l'ideale creare una clase carta
+I suoi attributi però sono suoi, ma non posso mica inizializzarli tutti e 52. Dovrei dare delle indicazioni che permettono di fare tutte le comninazioni
+4 semi , 13 carte. Jolly esclusi chiaramente.
+Quindi pensiamo un attimo alla logica che devo implementare per la sua realizzazione
+La mia classe carta contiene parametri che gia sappiamo. Il mio mazzo è una classe che contiene quindi 52 carte , oppure è sempliecmente un contenitore di 52 carte , alla fine ha solo questo parametro
+Si direi che è solamente un contenitore. Quindi una Lista di oggetti Carta.
+Il mio dealer ne possiede 6 / 8 di questi mazzi , quindi devo contare lo stesso mazzo ripetuto altre 6 volte
+Vi è poi la possibilità dell'user di poter cliccare shuffle the deck , quindi ci deve essere una funzioen che è capace di mischiare il mazzo
+Ora devo concentrarmi sull'idea che le carte devono essere distribuite con completa casualità , stessa cosa durante lo shuffle
+Per farlo posso usare random che è un metodo che serve praticamente a questo , devo però capire effettivamente se è capace di assegnare al player oggetti randomici di tipo carta da un mazzo che si continua ad aggiornare
+Il problema è che sono sicuro che sarebbe molto lento . Il mazzo è una lista e il mio oggetto dovrebbe entrare all'interno della lista stessa per provare a mischiare tutto quanto
+Una HashMap uìo un Set in generale potrebbero aiutare , ma il set non ammette alcun duplicato quindi l'idea di piu mazzi cade automaticamente
+Momentaneamente seguiamo l'idea di usare una lista di oggetti che è sicuramente piu sensata.
