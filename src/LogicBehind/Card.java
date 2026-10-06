@@ -1,13 +1,15 @@
 package LogicBehind;
 
 public class Card {
-    private Seeds seed;
-    private String value;
+    private final int value;
+    private final String name;
+    private final Seeds seed;
 
-    public Card(Seeds seed, String value){
+
+    public Card(int value,String name, Seeds seed){
         this.value = value;
+        this.name = name;
         this.seed = seed;
-
     }
 
     // The problem is that I actually need a way to understand what im gonna return to my console
@@ -26,7 +28,10 @@ public class Card {
     public Seeds getSeed(){
         return seed;
     }
-    public String getValue(){
+    public String getName(){
+        return name;
+    }
+    public int getValue(){
         return value;
     }
 
@@ -36,6 +41,8 @@ public class Card {
     // I don't that I need any setters , because the cards are just like that. I take it and see it , they don't overwrite each-others.
     @Override
     public String toString(){
-        return getValue() + " of " + getSeed();
+        return getName() + " of " + getSeed();
     }
 }
+
+// so I face another problem which is the insert of the value of my card , I elided in my mind the idea that "Ace" ecc already had values in it.

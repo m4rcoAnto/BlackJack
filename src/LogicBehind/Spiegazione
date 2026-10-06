@@ -39,3 +39,19 @@ Per farlo posso usare random che è un metodo che serve praticamente a questo , 
 Il problema è che sono sicuro che sarebbe molto lento . Il mazzo è una lista e il mio oggetto dovrebbe entrare all'interno della lista stessa per provare a mischiare tutto quanto
 Una HashMap uìo un Set in generale potrebbero aiutare , ma il set non ammette alcun duplicato quindi l'idea di piu mazzi cade automaticamente
 Momentaneamente seguiamo l'idea di usare una lista di oggetti che è sicuramente piu sensata.
+
+
+La vera domanda ora è in base al codice : Quante casistiche abbiamo e quante ne posso semplificare ?
+Se la mia mano è composta dalle prime due carte e faccio 21 di punteggio allora ho fatto blakcjack :
+1. caso : il dealer ha un 10 scoperto , non sappiamo se sotto la seconda carta c'è l'asso -> se scopre e c'è il 10 è push , se è un'altra carta allora vinciamo automaticamente.
+2. caso : il dealer ha un asso scoperto , non sappiamo se sotto la seconda carta c'è l'asso -> se scopre e c'è l'asso è push , se è un'altra carta allora vinciamo automaticamente.
+3. caso : il delaer ha una qualsiasi altra carta scoperta , vinciamo
+
+Se il mio punteggio è inferiore a 21
+Decisioni di hit or stand in base al punteggio della mia mano
+Se decido di fare hit devo ricalcolare ogni volta il punteggio che sto assegnando alla mia mano e ridecidere se voglio hittare o stare
+Indipendentemente dalla fase , se si termina il proprio turno ( anche senza aver chiamato alcuna carta ) con stand , allora il dealer scopre la sua carta
+1. Il punteggio delle carte del dealer è inferiore a 21 ma uguale o superiore a 17 -> se il mio punteggio è piu alto del suo allora vinco
+2. se il punteggio è inferiore a 17 continuerà a fare hit fino a quando non arriva ad almeno 17 con bound a 21 -> se il mio punteggio è più alto del suo vinco
+
+Cose importanti da ricordare per implementare : La mia mano ricorda tutti i suoi valori dopo ogni mano , quindi devo ricalcolare a 0 il punteggio del mio player e ridurre a 0 la mano prima della nuova assegnazione delle carte
