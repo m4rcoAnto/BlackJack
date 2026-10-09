@@ -37,11 +37,25 @@ public class Dealer {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    } // This function only exixts here , since the dealer is the only one that "Creates" some pause while dealing the cards.
+
+    public void myHit(Deck deck){
+        deck.getDeck();
+        myHand.add(deck.draw());
+        System.out.println(myHand);
+    }
+    public void dealerHit(Deck deck){
+        deck.getDeck();
+        dealerHand.add(deck.draw());
+        System.out.println(dealerHand);
     }
 
-    public void hit(){
+    public void removeHands(){
+        myHand.clear();
+        dealerHand.clear();
+    } // clearly i remove either hands because if one of them loses , the hands have to be empty too. Further more i don't need to use a function to eliminate the cards that i'm not using beacuse deck.draw() already does that,
 
-    }
+
     // for the hit method I'm a little confused. Because only me should hit , so the dealer does it automatically if the total sum is less then 17.
     // So this one is dedicated to me. For the dealer I will try to automazite it.
 }
@@ -60,3 +74,13 @@ public class Dealer {
 // If he has a 10 , then it's the same because the other card could possibly be an ace.
 // for every other card we win.
 
+// SUummarising :
+// An initial assigment method has been created -> I'll need it to check if the score is already 21 ( since it has only two cards it means that he has blackjack )
+// a hit method has been used for both parties
+// a remove method for noth parties has been implemented
+// Now i have to create a check for the Ace -> is this a method or just a case ?
+/* No , this is a method , i can recall the draw from the deck , when he draws me an Ace ( since it returns me the object then i can check if the score with the other card is already
+10 , because if it is , then it means that it is blackjack , if it isn't then the Ace can act as a 1 or a 11 too. This pretty much depends also on the score
+If the score is inferior to 10 , then the ace must be 11 if the player decides to stand , otherwise if he hits he's trating it as a 1 to not bust. The max number that he can get is a 10
+if two aces are on the same hand oonly the first ( as a convention ) is considered as the double choice.
+ */

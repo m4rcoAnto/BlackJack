@@ -18,13 +18,25 @@ public class TestBlackJack {
                 System.out.println("Here are the cards that are being dealt : ");
                 System.out.println("------------------------------------------------------");
                 dealer.assegnation(deck1);
-                try {
-                    if(){ // Here's another problem : Checking which type of cards my hand actually contains.
+                int myScore = dealer.calculatePoints();
+                int dealerScore = dealer.calculateHisPoints(); /*
+                try { // I also have to consider the idea of the Ace and the other cards which values are 10
+                    while(myScore < 21){ // Here's another problem : Checking which type of cards my hand actually contains.
                         System.out.println("What's your move? Hit or Stand");
                         if(scanner.next().equalsIgnoreCase("Hit")){
+                            dealer.Hit();
+                            myScore = dealer.calculatePoints();
+                            if(myScore == 21){
+
+                            }
+                        } else {
+                            break;
                         }
                     }
-                }
+                    while(dealerScore < 17){
+
+                    }
+                    */
             }
         } while();
     }
@@ -46,3 +58,27 @@ public class TestBlackJack {
 // This type of check is actually very hard , and creates problems with contains because it uses equals , but it only confronts the indices of the Cards , not the argument
 // And not only that but it would make my code a lot harder :
 // The real question that I want to answer is : is my hand equal or inferior to 21 points ?
+
+// So I inserted a lot of function which i will add in the Dealer menu. But the thing is that i have to consider first a check
+// Whenever myhand is composed of an Ace and card that has 10 as a value, then it means that my Phase has to stop
+/*
+try { // I also have to consider the idea of the Ace and the other cards which values are 10
+                    while(myScore < 21){ // Here's another problem : Checking which type of cards my hand actually contains.
+                        System.out.println("What's your move? Hit or Stand");
+                        if(scanner.next().equalsIgnoreCase("Hit")){
+                            dealer.Hit();
+                            myScore = dealer.calculatePoints();
+                            if(myScore == 21){
+
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+ */
+
+// so this could be a potential loop for my hand , i have to consider the delaer hand now
+// but before doing that i have to find a way to say that i've done blackjack and how to use the ace if it is not a blackjack.
+
+// Let's analyze it.
+
