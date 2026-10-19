@@ -6,39 +6,81 @@ import java.util.Random;
 
 public class TestBlackJack {
     public static void main(String[] args){
+
         Deck deck1 = new Deck();
+        deck1.initializeDeck();
         Dealer dealer = new Dealer();
         Scanner scanner = new Scanner(System.in);
-        deck1.initializeDeck();
+        String word = "";
+        int wins = 0;
+        int losses = 0;
 
         do {
             System.out.println("Hi and welcome , care to play ? Y / N");
-            String word = scanner.next();
-            while(word.equals("Y")){
+            word = scanner.next();
+            while(word.equalsIgnoreCase("y")){
                 System.out.println("Here are the cards that are being dealt : ");
                 System.out.println("------------------------------------------------------");
                 dealer.assegnation(deck1);
-                int myScore = dealer.calculatePoints();
-                int dealerScore = dealer.calculateHisPoints(); /*
-                try { // I also have to consider the idea of the Ace and the other cards which values are 10
-                    while(myScore < 21){ // Here's another problem : Checking which type of cards my hand actually contains.
-                        System.out.println("What's your move? Hit or Stand");
-                        if(scanner.next().equalsIgnoreCase("Hit")){
-                            dealer.Hit();
-                            myScore = dealer.calculatePoints();
-                            if(myScore == 21){
+                int dealerScore = dealer.calculateHisPoints();
+                int myScore = dealer.calculateMyPoints();
 
-                            }
-                        } else {
-                            break;
+                if(myScore == 21 && dealerScore < 21){
+                    System.out.println("You win! BlackJack!");
+                } else {
+                    do {
+                        System.out.println("What's your choice now ? : ");
+                        word = scanner.next();
+                        switch (word) {
+                            case "Hit" :
+                                while(word.equals("Hit") && myScore < 21) {
+                                    dealer.myHit(deck1);
+                                    myScore = dealer.calculateMyPoints();
+                                    if(myScore < 21){
+                                        System.out.println("What's your decision ?");
+                                        word = scanner.next();
+                                    }
+                                }
+                                if (myScore > 21) {
+                                    System.out.println("You busted , dealer wins");
+                                    word = "Out";
+                                    break;
+                                } else if (myScore == 21) {
+                                    break;
+                                }
+                            case "Stand" :
+                                while (dealerScore < 17) {
+                                    System.out.println();
+                                    dealer.dealerHit(deck1);
+                                    dealerScore = dealer.calculateHisPoints();
+                                }
+                                if (dealerScore > 21) {
+                                    System.out.println("Dealer busted , all player that have not busted win");
+                                    word = "Out";
+                                    break;
+                                }
+                                System.out.println("Dealer has to stand with : " + dealerScore);
+                                if(myScore > dealerScore){
+                                    System.out.println("You win! You beat the delaer with : "+ myScore + ", against " + dealerScore + ".");
+                                    break;
+                                } else if(myScore == dealerScore){
+                                    System.out.println("Your score is the same as the dealer , bets are pushed.");
+                                    break;
+                                } else {
+                                    System.out.println("You lose! The dealer has higher points.");
+                                    break;
+                                }
+
                         }
-                    }
-                    while(dealerScore < 17){
+                    } while (word.equalsIgnoreCase("Hit"));
 
-                    }
-                    */
+                }
+
+                System.out.println("Would like to play again?");
+                word = scanner.next();
+                dealer.removeHands();
             }
-        } while();
+        } while(word.equalsIgnoreCase("y"));
     }
 }
 
@@ -82,3 +124,9 @@ try { // I also have to consider the idea of the Ace and the other cards which v
 
 // Let's analyze it.
 
+// All right so i made it officially playable , the only thing that i gotta understand now is how to treat the ace
+// I have to play to actually see if it works properly.
+
+// Also i thought about it : in the casino it not a list od fecks , or separeted decks , but just a big container of cards where every card is random.
+// so i could simply put in the constructor of deck the number of deck that i want to play with , in my case 8.
+// Bu tthat does not work clearly because the constructor only tells me how much the number of decks are , it does not create 8 decks.

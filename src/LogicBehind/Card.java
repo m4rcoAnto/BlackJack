@@ -1,7 +1,7 @@
 package LogicBehind;
 
 public class Card {
-    private final int value;
+    private int value;
     private final String name;
     private final Seeds seed;
 
@@ -33,6 +33,10 @@ public class Card {
     }
     public int getValue(){
         return value;
+    }
+
+    public void setValue(int value){
+        this.value = value;
     }
 
     // Wouldn't this be redundant ?? My values are a number between 1 and 11 depending on the aces.

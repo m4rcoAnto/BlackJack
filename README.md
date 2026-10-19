@@ -15,9 +15,9 @@ Work in progress.
 - [x] `Deck` — 52 cards, random draw with removal
 - [x] `Dealer` — initial deal, alternating player and dealer
 - [ ] Hand scoring, with aces counting 1 or 11
-- [ ] Hit / stay loop
-- [ ] Dealer draws to 17
-- [ ] Win conditions
+- [x] Hit / stay loop
+- [x] Dealer draws to 17
+- [x] Win conditions
 - [ ] Python version
 
 ## Run
