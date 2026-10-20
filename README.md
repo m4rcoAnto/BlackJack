@@ -22,4 +22,4 @@ Work in progress.
 
 ## Run
 
-Open in IntelliJ and run `Main`.
+Open in IntelliJ and run `TestBlackJack`.

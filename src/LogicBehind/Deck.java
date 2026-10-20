@@ -40,7 +40,7 @@ public class Deck{
 
     public List<Card> initializeDeck(){
         for(int i = 0; i < numberOfDecks; i++){
-            for(int j = 0; i < values.length;  j++){
+            for(int j = 0; j < values.length;  j++){
                 for(Seeds s : Seeds.values()){
                     deck.add(new Card(values[j], names[j], s));
                 }
