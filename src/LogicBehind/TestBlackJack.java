@@ -19,23 +19,37 @@ public class TestBlackJack {
             System.out.println("Hi and welcome , care to play ? Y / N");
             word = scanner.next();
             while(word.equalsIgnoreCase("y")){
+                if(deck1.shuffle()){
+                    System.out.println("The deck has to be shuffled first : ");
+                    System.out.println("Wait while we shuffle the cards : ");
+                    int waiting = 0;
+                    while(waiting < 5){
+                        Dealer.pause();
+                        System.out.println(".");
+                        waiting++;
+                    }
+                }
                 System.out.println("Here are the cards that are being dealt : ");
                 System.out.println("------------------------------------------------------");
                 dealer.assegnation(deck1);
                 int dealerScore = dealer.calculateHisPoints();
+
                 int myScore = dealer.calculateMyPoints();
 
-                if(myScore == 21 && dealerScore < 21){
-                    System.out.println("You win! BlackJack!");
+
+                if(dealer.Blackjack(dealer.getMyHand()) && !dealer.Blackjack(dealer.getDealerHand())){
+                    System.out.println("Blackjack! You win!");
                 } else {
                     do {
                         System.out.println("What's your choice now ? : ");
                         word = scanner.next();
+
                         switch (word) {
                             case "Hit" :
                                 while(word.equals("Hit") && myScore < 21) {
                                     dealer.myHit(deck1);
                                     myScore = dealer.calculateMyPoints();
+
                                     if(myScore < 21){
                                         System.out.println("What's your decision ?");
                                         word = scanner.next();
@@ -46,13 +60,21 @@ public class TestBlackJack {
                                     word = "Out";
                                     break;
                                 } else if (myScore == 21) {
-                                    break;
+                                    word = "Stand";
                                 }
                             case "Stand" :
-                                while (dealerScore < 17) {
-                                    System.out.println();
+                                System.out.println("Dealer's Turn : ");
+                                System.out.println("--------------------------------");
+                                Dealer.pause();
+                                System.out.println(dealer.getDealerHand() + " -> " + dealer.calculateHisPoints());
+                                if(dealer.Blackjack(dealer.getDealerHand())){
+                                    System.out.println("DThe dealer had Blackjack, you lose.");
+                                    break;
+                                }
+                                while(dealerScore < 17) {
                                     dealer.dealerHit(deck1);
                                     dealerScore = dealer.calculateHisPoints();
+                                    Dealer.pause();
                                 }
                                 if (dealerScore > 21) {
                                     System.out.println("Dealer busted , all player that have not busted win");
@@ -70,9 +92,8 @@ public class TestBlackJack {
                                     System.out.println("You lose! The dealer has higher points.");
                                     break;
                                 }
-
                         }
-                    } while (word.equalsIgnoreCase("Hit"));
+                    } while (word.equals("Hit"));
 
                 }
 
@@ -130,3 +151,9 @@ try { // I also have to consider the idea of the Ace and the other cards which v
 // Also i thought about it : in the casino it not a list od fecks , or separeted decks , but just a big container of cards where every card is random.
 // so i could simply put in the constructor of deck the number of deck that i want to play with , in my case 8.
 // Bu tthat does not work clearly because the constructor only tells me how much the number of decks are , it does not create 8 decks.
+
+// i have to implement tha ace case in here now. I can manually set the points.
+
+
+// so let's say that the dealer has 21 and I dont know , then it means that i need a check of a boolean to actually see if the dealer has blackjack
+// for example if don't have blackjack then i need a boolean as a check. if the boolean is false then i lose , else it's a push.

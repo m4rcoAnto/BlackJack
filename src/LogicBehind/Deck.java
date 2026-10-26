@@ -49,4 +49,14 @@ public class Deck{
         return deck;
     }
 
+    public boolean shuffle(){
+        boolean bool = false;
+        if(deck.size() <= 400){
+            deck.clear();
+            initializeDeck();
+            bool = true;
+        }
+        return bool;
+    }
+
 }

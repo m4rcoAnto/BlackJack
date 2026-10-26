@@ -23,7 +23,7 @@ public class Dealer {
                     dealerHand.add(deck.draw());
                 }
             }
-            System.out.println("Dealer's hand : " + dealerHand + " -> " +calculateHisPoints());
+            System.out.println("Dealer's hand : " + "[" +dealerHand.getFirst()+ ",    ?    ]");
             pause();
             System.out.println(("My hand : " + myHand + " -> " +calculateMyPoints()));
         } catch (Exception e){
@@ -31,7 +31,15 @@ public class Dealer {
         }
     }
 
-    private static void pause(){
+    public boolean Blackjack(List<Card> hand){
+        boolean bool = false;
+        if(hand.size() == 2 && calculatePoints(hand) == 21){
+            bool = true;
+        }
+        return bool;
+    }
+
+    public static void pause(){
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -57,44 +65,34 @@ public class Dealer {
         dealerHand.clear();
     } // clearly i remove either hands because if one of them loses , the hands have to be empty too. Further more i don't need to use a function to eliminate the cards that i'm not using beacuse deck.draw() already does that,
 
-    public int calculateMyPoints(){
+    public int calculatePoints(List<Card> hand) {
         int sum = 0;
-        for(Card c : myHand){
-            sum += c.getValue();
-        }
+        boolean hasAce = false;
 
-        return sum;
-    }
-
-    public int calculateHisPoints(){
-        int sum = 0;
-        for(Card c : dealerHand){
-            sum += c.getValue();
-        }
-
-        return sum;
-    }
-
-    public boolean caseAceMyHand() {
-        boolean bool = false;
-        for (Card c : myHand) {
+        for (Card c : hand) {
             if (c.getName().equals("Ace")) {
-                bool = true;
+                sum += 1;
+                hasAce = true;
+            } else {
+                sum += c.getValue();
             }
         }
 
-        return bool;
+        if (hasAce && sum + 10 <= 21) {
+            sum += 10;   // un asso vale 11
+        }
+        return sum;
     }
 
-    public boolean caseAceDealerHand() {
-        boolean bool = false;
-        for (Card c : dealerHand) {
-            if (c.getName().equals("Ace")) {
-                bool = true;
-            }
-        }
+    public int calculateMyPoints(){ return calculatePoints(myHand);}
+    public int calculateHisPoints(){ return calculatePoints(dealerHand);}
 
-        return bool;
+    public List<Card> getDealerHand(){
+        return dealerHand;
+    }
+
+    public List<Card> getMyHand(){
+        return myHand;
     }
 
     // for the hit method I'm a little confused. Because only me should hit , so the dealer does it automatically if the total sum is less then 17.
@@ -160,3 +158,14 @@ I pretty much have to recall the myHit and delaerHit methods, since I used draw 
 So do i really need caseAce as a method ?
 well if myhand in the first 2 cards contains an Ace then yes, otherwise no
  */
+
+/*
+so I need to update the ace now , let's see what i can do.
+ */
+
+
+// all right , so the ace is now done. Now i only need to not print out the first card value of the dealer.
+
+// The game is theortically over , i don't know about some bugs , maybe i should start looking inside the code.
+// I could implement a shuffle function whenever i hit , maybe , 52 cards , so that a person cannot count the number of cards that have been out
+// But maybe 52 is too much , 30 should do.
